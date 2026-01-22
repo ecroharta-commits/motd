@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>MOTD - PRIMARY KEY THEME</title>
+  <meta name="color-scheme" content="dark" />
+  <style>
+    :root{
+      --bg:#05070b;
+      --text:#e9f2ff;
+      --muted:#9db0c7;
+      --cyan:#3df3ff;
+      --purple:#a855f7;
+      --pink:#ff4fd8;
+      --card: rgba(10,14,22,.55);
+      --stroke: rgba(255,255,255,.10);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x:hidden;
+    }
+
+    /* ======= BACKGROUND THEME (grid + glow) ======= */
+    .bg{
+      position:fixed; inset:0; z-index:-2;
+      background:
+        radial-gradient(1200px 700px at 50% 30%, rgba(61,243,255,.10), transparent 60%),
+        radial-gradient(900px 500px at 55% 42%, rgba(168,85,247,.10), transparent 62%),
+        radial-gradient(700px 350px at 50% 55%, rgba(255,79,216,.08), transparent 70%),
+        linear-gradient(180deg, rgba(0,0,0,.0), rgba(0,0,0,.55) 55%, rgba(0,0,0,.92));
+    }
+
+    /* Perspective grid layer */
+    .gridWrap{
+      position:fixed; inset:0;
+      z-index:-1;
+      perspective: 900px;
+      transform-style: preserve-3d;
+      pointer-events:none;
+      opacity:.9;
+    }
+
+    .grid{
+      position:absolute;
+      left:50%;
+      top:55%;
+      width:220%;
+      height:170%;
+      transform: translate(-50%, -30%) rotateX(72deg);
+      transform-origin:center;
+      background:
+        /* vertical lines */
+        repeating-linear-gradient(
+          90deg,
+          rgba(61,243,255,.00) 0px,
+          rgba(61,243,255,.00) 26px,
+          rgba(61,243,255,.15) 27px,
+          rgba(61,243,255,.00) 28px
+        ),
+        /* horizontal lines */
+        repeating-linear-gradient(
+          0deg,
+          rgba(61,243,255,.00) 0px,
+          rgba(61,243,255,.00) 26px,
+          rgba(61,243,255,.15) 27px,
+          rgba(61,243,255,.00) 28px
+        );
+      filter: drop-shadow(0 0 18px rgba(61,243,255,.18));
+      mask-image: radial-gradient(closest-side at 50% 50%, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 80%);
+      -webkit-mask-image: radial-gradient(closest-side at 50% 50%, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 80%);
+    }
+
+    /* vignette */
+    .vignette{
+      position:fixed; inset:0; z-index:-1;
+      background: radial-gradient(circle at 50% 40%, rgba(0,0,0,0) 20%, rgba(0,0,0,.65) 70%, rgba(0,0,0,.9) 100%);
+      pointer-events:none;
+    }
+
+    /* ======= LAYOUT ======= */
+    .wrap{
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 26px 18px 40px;
+      display:flex;
+      min-height:100%;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .panel{
+      width:100%;
+      border-radius: 22px;
+      border: 1px solid var(--stroke);
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      box-shadow:
+        0 22px 80px rgba(0,0,0,.55),
+        0 0 0 1px rgba(61,243,255,.06) inset;
+      overflow:hidden;
+    }
+
+    .topbar{
+      display:flex;
+      gap:12px;
+      align-items:center;
+      justify-content:space-between;
+      padding: 14px 16px;
+      background: rgba(0,0,0,.35);
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+
+    .pill{
+      display:inline-flex; gap:10px; align-items:center;
+      padding:8px 12px;
+      border:1px solid rgba(61,243,255,.20);
+      background: rgba(61,243,255,.07);
+      border-radius:999px;
+      font-size:12px;
+      color: var(--muted);
+      letter-spacing:.4px;
+    }
+    .dot{
+      width:8px; height:8px; border-radius:50%;
+      background: #30d158;
+      box-shadow: 0 0 12px rgba(48,209,88,.55);
+    }
+
+    .nav{
+      display:flex; gap:8px; flex-wrap:wrap;
+    }
+    .nav a{
+      color: var(--muted);
+      font-size:12px;
+      padding:8px 10px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.08);
+      background: rgba(255,255,255,.03);
+      text-decoration:none;
+    }
+    .nav a:hover{border-color: rgba(61,243,255,.25); color: var(--text);}
+
+    .content{
+      padding: 28px 18px 24px;
+      text-align:center;
+    }
+
+    .logo{
+      width:86px; height:86px;
+      margin: 0 auto 12px;
+      border-radius: 26px;
+      background:
+        radial-gradient(circle at 30% 30%, rgba(255,79,216,.35), transparent 55%),
+        radial-gradient(circle at 70% 20%, rgba(168,85,247,.30), transparent 60%),
+        linear-gradient(135deg, rgba(61,243,255,.9), rgba(168,85,247,.85));
+      box-shadow:
+        0 20px 60px rgba(61,243,255,.20),
+        0 0 30px rgba(168,85,247,.16);
+      position:relative;
+      overflow:hidden;
+    }
+    .logo:after{
+      content:"";
+      position:absolute; inset:-40%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.22), transparent);
+      transform: rotate(25deg);
+      animation: shine 4.6s linear infinite;
+    }
+    @keyframes shine{
+      0%{transform: translateX(-40%) rotate(25deg)}
+      100%{transform: translateX(40%) rotate(25deg)}
+    }
+
+    .title{
+      margin: 6px 0 8px;
+      font-size: 44px;
+      line-height:1.05;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-weight: 900;
+      color: #fff;
+      text-shadow:
+        0 0 18px rgba(61,243,255,.20),
+        0 0 28px rgba(168,85,247,.16);
+    }
+    .title span{
+      background: linear-gradient(90deg, var(--cyan), var(--purple), var(--pink));
+      -webkit-background-clip:text;
+      background-clip:text;
+      color: transparent;
+    }
+
+    .terminal{
+      max-width: 560px;
+      margin: 14px auto 16px;
+      text-align:left;
+      padding: 14px 16px;
+      border-radius: 16px;
+      border: 1px solid rgba(61,243,255,.18);
+      background: rgba(0,0,0,.30);
+      box-shadow: 0 0 0 1px rgba(255,255,255,.04) inset;
+      font-family: ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;
+      color: #d7ecff;
+      font-size: 13px;
+      line-height:1.6;
+    }
+    .prompt{color: rgba(61,243,255,.85)}
+    .muted{color: var(--muted)}
+    .cursor{
+      display:inline-block; width:10px; height:16px; vertical-align:middle;
+      background: rgba(61,243,255,.75);
+      box-shadow: 0 0 12px rgba(61,243,255,.35);
+      margin-left:4px;
+      animation: blink 1s step-end infinite;
+    }
+    @keyframes blink{50%{opacity:0}}
+
+    .row{
+      display:flex; gap:10px; justify-content:center; flex-wrap:wrap;
+      margin-top: 14px;
+    }
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      padding: 12px 14px;
+      border-radius: 14px;
+      text-decoration:none;
+      font-weight: 700;
+      font-size: 13px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+      color: var(--text);
+      min-width: 180px;
+    }
+    .btn.primary{
+      border-color: rgba(61,243,255,.30);
+      background: rgba(61,243,255,.10);
+      box-shadow: 0 0 24px rgba(61,243,255,.10);
+    }
+    .btn:hover{
+      border-color: rgba(168,85,247,.30);
+      box-shadow: 0 0 26px rgba(168,85,247,.10);
+    }
+
+    .fine{
+      margin-top: 14px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    /* small screens */
+    @media (max-width:520px){
+      .title{font-size:34px}
+      .btn{min-width: 150px}
+    }
+  </style>
+</head>
+
+<body>
+  <div class="bg"></div>
+  <div class="gridWrap"><div class="grid"></div></div>
+  <div class="vignette"></div>
+
+  <div class="wrap">
+    <main class="panel">
+      <div class="topbar">
+        <div class="pill"><span class="dot"></span> SYSTEM: ONLINE • SERVER: RUNNING</div>
+        <nav class="nav">
+          <a href="https://tonsite.com" target="_blank" rel="noopener">ACCUEIL</a>
+          <a href="https://tonsite.com/serveurs" target="_blank" rel="noopener">SERVEURS</a>
+          <a href="https://discord.gg/TONLIEN" target="_blank" rel="noopener">DISCORD</a>
+        </nav>
+      </div>
+
+      <section class="content">
+        <div class="logo" aria-hidden="true"></div>
+
+        <div class="title"><span>PRIMARY KEY</span></div>
+
+        <div class="terminal">
+          <div><span class="prompt">&gt;</span> INITIALIZING CONNECTION<span class="cursor"></span></div>
+          <div><span class="prompt">&gt;</span> COLLECTIVE FOUND: <span class="muted">STREAMERS & GAMERS</span></div>
+          <div><span class="prompt">&gt;</span> STATUS: <span class="muted">READY TO CHILL</span></div>
+          <div><span class="prompt">&gt;</span> RULES: <span class="muted">RESPECT • NO CHEAT • NO TOXICITY</span></div>
+        </div>
+
+        <div class="row">
+          <a class="btn primary" href="https://discord.gg/TONLIEN" target="_blank" rel="noopener">REJOINDRE LE DISCORD</a>
+          <a class="btn" href="steam://connect/IP:PORT">CONNEXION DIRECTE</a>
+        </div>
+
+        <div class="fine">© TON SERVEUR — Merci de jouer propre.</div>
+      </section>
+    </main>
+  </div>
+</body>
+</html>
